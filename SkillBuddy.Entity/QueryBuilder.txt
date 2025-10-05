@@ -1,0 +1,210 @@
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using SkillBuddy.Core;
+
+namespace SkillBuddy.Entity
+{
+    public class QueryBuilder
+    {
+        [JsonProperty("condition", NullValueHandling = NullValueHandling.Ignore)]
+        public QueryBuilderCondition? Condition { get; set; }
+
+        [JsonProperty("rules", NullValueHandling = NullValueHandling.Ignore)]
+        public List<QueryRule> Rules { get; set; }
+
+        [JsonProperty("not", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Not { get; set; }   // ✅ Changed from string? → bool?
+
+        [JsonProperty("valid", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Valid { get; set; }
+
+        public int? Count { get; set; }
+
+        [JsonProperty("offset", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Offset { get; set; }   // ✅ renamed OffSet → Offset
+
+        [JsonProperty("pageSize", NullValueHandling = NullValueHandling.Ignore)] // ✅ consistent casing
+        public long? PageSize { get; set; }
+
+        public virtual List<QueryOrder> OrderBy { get; set; }
+
+        public QueryBuilder()
+        {
+            Rules = new List<QueryRule>();
+        }
+
+        public QueryBuilder(QueryBuilderCondition condition, List<QueryRule> rules)
+        {
+            Condition = condition;
+            Rules = rules;
+        }
+
+        #region [ From Json ]
+        public static QueryBuilder FromJson(string json)
+        {
+            var qb = JsonConvert.DeserializeObject<QueryBuilder>(json);
+
+            if (qb == null)
+                return new QueryBuilder();
+
+            return new QueryBuilder
+            {
+                Condition = qb.Condition,
+                Rules = qb.Rules != null ? GetQueryRules(qb.Rules) : new List<QueryRule>(), // ✅ null safe
+                Not = qb.Not,
+                Valid = qb.Valid,
+                Count = qb.Count,
+                Offset = qb.Offset,
+                PageSize = qb.PageSize,
+                OrderBy = qb.OrderBy
+            };
+        }
+
+        private static List<QueryRule> GetQueryRules(List<QueryRule> rules)
+        {
+            var result = new List<QueryRule>();
+
+            foreach (var rule in rules)
+            {
+                if (rule.Field != null)
+                {
+                    result.Add(
+                        new QueryRule(
+                            rule.Field,
+                            rule.Operator ?? QueryBuilderOperator.Equals,
+                            rule.Value1,
+                            rule.Value2
+                        ));
+                }
+
+                if (rule.Rules != null && rule.Rules.Count > 0)
+                    result.AddRange(GetQueryRules(rule.Rules));
+            }
+
+            return result;
+        }
+        #endregion
+    }
+
+    public enum QueryBuilderCondition
+    {
+        AND,
+        OR
+    }
+
+    public enum QueryBuilderOperator
+    {
+        Equals,
+        NotEquals,
+        LessThan,
+        LessThanOrEquals,   // ✅ corrected typo
+        GreaterThan,
+        GreaterThanOrEqual,
+        Is,
+        IsNot,
+        In,
+        NotIn,
+        Between,
+        NotBetween,
+        IsNull,
+        IsNotNull
+    }
+
+    public class QueryRule
+    {
+        [JsonProperty("field", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Field { get; set; }
+
+        [JsonProperty("operator", NullValueHandling = NullValueHandling.Ignore)]
+        public QueryBuilderOperator? Operator { get; set; }
+
+        [JsonProperty("value1", NullValueHandling = NullValueHandling.Ignore)]
+        public object? Value1 { get; set; }
+
+        [JsonProperty("value2", NullValueHandling = NullValueHandling.Ignore)]
+        public object? Value2 { get; set; }
+
+        [JsonProperty("rules", NullValueHandling = NullValueHandling.Ignore)]
+        public List<QueryRule>? Rules { get; set; }
+
+        [JsonProperty("condition", NullValueHandling = NullValueHandling.Ignore)]
+        public QueryBuilderCondition? Condition { get; set; }
+
+        public QueryRule() { }
+
+        public QueryRule(string field, QueryBuilderOperator @operator, object value)
+        {
+            Field = field;
+            Operator = @operator;
+            Value1 = ValueOf(value);
+        }
+
+        public QueryRule(string field, QueryBuilderOperator @operator, object value1, object value2)
+            : this(field, @operator, value1)
+        {
+            Value2 = ValueOf(value2);
+        }
+
+        private object ValueOf(object value)
+{
+    if (value != null && value.IsList())
+    {
+        Type listType = value.GetType().GetGenericArguments().Single();
+
+        if (listType == typeof(byte))
+            return (value as IEnumerable<byte>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(short))
+            return (value as IEnumerable<short>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(int))
+            return (value as IEnumerable<int>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(long))
+            return (value as IEnumerable<long>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(ushort))
+            return (value as IEnumerable<ushort>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(uint))
+            return (value as IEnumerable<uint>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(ulong))
+            return (value as IEnumerable<ulong>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(float))
+            return (value as IEnumerable<float>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(double))
+            return (value as IEnumerable<double>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(decimal))
+            return (value as IEnumerable<decimal>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(char))
+            return (value as IEnumerable<char>)!.ToList().ToCsvString(typeof(string));
+        else if (listType == typeof(Guid))
+            return (value as IEnumerable<Guid>)!.ToList().ToCsvString(typeof(string));
+
+        // ✅ Generic fallback for any other type
+        return (value as System.Collections.IEnumerable)!
+            .Cast<object>()
+            .ToList()
+            .ToCsvString(typeof(string));
+    }
+
+    return Helper.GetQuotedDbString(value, typeof(string));
+}
+
+    }
+
+    public enum QueryOrderType
+    {
+        ASC,
+        DESC
+    }
+
+    public class QueryOrder
+    {
+        public QueryOrderType Type { get; set; }
+        public string Field { get; set; }
+
+        public QueryOrder(string field, QueryOrderType type)
+        {
+            Field = field;
+            Type = type;
+        }
+    }
+}

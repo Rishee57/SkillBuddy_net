@@ -1,0 +1,38 @@
+# Build output
+**/bin/
+**/obj/
+
+# Rider/JetBrains IDE files
+.idea/
+*.sln.iml
+
+# VS Code settings
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Logs
+*.log
+
+# Docker artifacts
+*.pid
+*.seed
+*.db
+*.sqlite
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Others
+SkillBuddy.ui/http/

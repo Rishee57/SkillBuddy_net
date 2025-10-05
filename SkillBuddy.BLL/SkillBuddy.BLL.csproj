@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\SkillBuddy.data\SkillBuddy.data.csproj" />
+    <ProjectReference Include="..\SkillBuddy.Core\SkillBuddy.Core.csproj" />
+    <ProjectReference Include="..\SkillBuddy.Entity\SkillBuddy.Entity.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
