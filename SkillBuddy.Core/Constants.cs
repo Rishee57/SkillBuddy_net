@@ -1,83 +1,116 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using Microsoft.Extensions.FileProviders;
-using System.Diagnostics;
+using System;
+using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace SkillBuddy.Core
 {
+    /// <summary>
+    /// Provides centralized configuration constants and regex utilities.
+    /// </summary>
     public sealed class Constants
     {
-        static IConfiguration Configuration;
+        private static readonly IConfiguration? Configuration;
 
-        public static int MAX_RETRY { get; private set; }
-        public static int RETRY_INTERVAL { get; private set; }
+        /// <summary>
+        /// Maximum number of retries for operations (from config).
+        /// </summary>
+        public static int MaxRetry { get; private set; }
 
-        public static readonly string[] DATE_FORMATS = { 
-            // Basic formats
+        /// <summary>
+        /// Retry interval in milliseconds (from config).
+        /// </summary>
+        public static int RetryInterval { get; private set; }
+
+        /// <summary>
+        /// Common ISO date/time formats used for parsing timestamps.
+        /// </summary>
+        public static readonly string[] DateFormats = {
             "yyyyMMddTHHmmsszzz",
             "yyyyMMddTHHmmsszz",
             "yyyyMMddTHHmmssZ",
-            // Extended formats
             "yyyy-MM-ddTHH:mm:sszzz",
             "yyyy-MM-ddTHH:mm:sszz",
             "yyyy-MM-ddTHH:mm:ssZ",
-            // All of the above with reduced accuracy
             "yyyyMMddTHHmmzzz",
             "yyyyMMddTHHmmzz",
             "yyyyMMddTHHmmZ",
             "yyyy-MM-ddTHH:mmzzz",
             "yyyy-MM-ddTHH:mmzz",
             "yyyy-MM-ddTHH:mmZ",
-            // Accuracy reduced to hours
             "yyyyMMddTHHzzz",
             "yyyyMMddTHHzz",
             "yyyyMMddTHHZ",
             "yyyy-MM-ddTHHzzz",
             "yyyy-MM-ddTHHzz",
             "yyyy-MM-ddTHHZ",
-            // localTime
             "yyyy-MM-ddTHH:mm:ssK"
         };
 
+        /// <summary>
+        /// Regex to validate URLs.
+        /// </summary>
         public static Regex UrlRegex { get; private set; }
-        public static Regex InvalidFilenameRegex { get; private set; }
 
-        public static IConfigurationBuilder GetConfigurationBuilder()
-        {
-            return new ConfigurationBuilder()
-                .SetBasePath(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? System.IO.Directory.GetCurrentDirectory())
-                .AddJsonFile("providers.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("chatbotsettings.json", optional: true, reloadOnChange: true);
-        }
+        /// <summary>
+        /// Regex to validate filenames.
+        /// </summary>
+        public static Regex InvalidFilenameRegex { get; private set; }
 
         static Constants()
         {
-            var configurationBuilder = GetConfigurationBuilder().AddEnvironmentVariables();
+            try
+            {
+                var configurationBuilder = GetConfigurationBuilder().AddEnvironmentVariables();
+                Configuration = configurationBuilder.Build();
 
+                if (int.TryParse(Configuration["Constants:MaxRetry"], out int maxRetry))
+                    MaxRetry = maxRetry;
+                else
+                    MaxRetry = 3;
 
-            Int32 int32Value;
+                if (int.TryParse(Configuration["Constants:RetryInterval"], out int retryInterval))
+                    RetryInterval = retryInterval;
+                else
+                    RetryInterval = 2000;
 
-            Configuration = configurationBuilder.Build();
-            if (!String.IsNullOrEmpty(Configuration["Constants:MaxRetry"]) && Int32.TryParse(Configuration["Constants:MaxRetry"], out int32Value))
-                MAX_RETRY = int32Value;
+                var invalidUrlRegexPattern = Configuration["Constants:UrlRegex"];
+                UrlRegex = !string.IsNullOrEmpty(invalidUrlRegexPattern)
+                    ? new Regex(invalidUrlRegexPattern, RegexOptions.Compiled)
+                    : new Regex(@"^((https?|s?ftp):\/\/)[\w/\-?=%.]+\.[\w/\-&?=%.+,;]+$", RegexOptions.Compiled);
 
-            if (!String.IsNullOrEmpty(Configuration["Constants:MaxRetry"]) && Int32.TryParse(Configuration["Constants:RetryInterval"], out int32Value))
-                RETRY_INTERVAL = int32Value;
+                var invalidPattern = Configuration["Constants:InvalidFilenameRegex"];
+                InvalidFilenameRegex = !string.IsNullOrEmpty(invalidPattern)
+                    ? new Regex(invalidPattern, RegexOptions.Compiled)
+                    : new Regex(@"[\\/:%?*|""<>]", RegexOptions.Compiled);
 
-            if (!String.IsNullOrEmpty(Configuration["Constants:UrlRegex"]))
-                UrlRegex = new Regex(Configuration["Constants:UrlRegex"], RegexOptions.Compiled);
-            else
+            }
+            catch (Exception ex)
+            {
+                // fallback defaults if configuration fails
+                MaxRetry = 3;
+                RetryInterval = 2000;
                 UrlRegex = new Regex(@"^((https?|s?ftp):\/\/)[\w/\-?=%.]+\.[\w/\-&?=%.+,;]+$", RegexOptions.Compiled);
+                InvalidFilenameRegex = new Regex(@"[\\/:%?*|""<>]", RegexOptions.Compiled);
 
+                Console.WriteLine($"[Constants] Initialization failed: {ex.Message}");
+            }
+        }
 
+        /// <summary>
+        /// Builds a configuration builder with JSON configuration sources.
+        /// </summary>
+        public static IConfigurationBuilder GetConfigurationBuilder()
+        {
+            string basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                ?? Directory.GetCurrentDirectory();
 
-            if (!String.IsNullOrEmpty(Configuration["Constants:InvalidFilenameRegex"]))
-                InvalidFilenameRegex = new Regex(Configuration["Constants:InvalidFilenameRegex"], RegexOptions.Compiled);
-            else
-                InvalidFilenameRegex = new Regex(@"[///\/%/?/*/:/|\""\<\>]", RegexOptions.Compiled);
+            return new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("providers.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("chatbotsettings.json", optional: true, reloadOnChange: true);
         }
     }
 }
