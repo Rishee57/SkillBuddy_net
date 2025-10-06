@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillBuddy.BLL", "SkillBudd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillBuddy.Entity", "SkillBuddy.Entity\SkillBuddy.Entity.csproj", "{81BC84C4-E7F7-4DFE-83C3-5C7541B63E6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillBuddy.Blazor", "SkillBuddy.Blazor\SkillBuddy.Blazor.csproj", "{7EA7569E-B07A-4279-BEFF-5F8B02279C26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,5 +39,9 @@ Global
 		{81BC84C4-E7F7-4DFE-83C3-5C7541B63E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81BC84C4-E7F7-4DFE-83C3-5C7541B63E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81BC84C4-E7F7-4DFE-83C3-5C7541B63E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EA7569E-B07A-4279-BEFF-5F8B02279C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA7569E-B07A-4279-BEFF-5F8B02279C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA7569E-B07A-4279-BEFF-5F8B02279C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA7569E-B07A-4279-BEFF-5F8B02279C26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
