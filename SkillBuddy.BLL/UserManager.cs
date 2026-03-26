@@ -11,10 +11,10 @@ namespace SkillBuddy.BLL
     {
         UserDataAccess da = new UserDataAccess();
 
-        // public async Task<List<ApplicationUser>> Search(ApplicationUserSearch user)
-        // {
-        //     return await da.Search(user);
-        // }
+        public async Task<List<ApplicationUser>> Search(ApplicationUser user)
+        {
+            return await da.SearchAsync(user);
+        }
 
         //     public async Task<List<ApplicationUser>> UserSearch(ApplicationUserSearch user)
         //     {

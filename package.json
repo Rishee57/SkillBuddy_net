@@ -1,0 +1,14 @@
+{
+  "name": "skillbuddy-blazor",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.4.8"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i ./styles/tailwind.css -o ./SkillBuddy.Blazor/wwwroot/css/tailwind.css --minify",
+    "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./SkillBuddy.Blazor/wwwroot/css/tailwind.css --watch"
+  }
+}

@@ -1,11 +1,13 @@
-using SkillBuddy.Blazor.Components;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
+// ✅ Register HttpClient for API calls
+builder.Services.AddHttpClient("ServerAPI", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5173/");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,8 +23,7 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
-app.MapStaticAssets();
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapRazorComponents<SkillBuddy.Blazor.App>()
+.AddInteractiveServerRenderMode();
 
 app.Run();

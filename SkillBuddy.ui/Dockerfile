@@ -1,24 +1,24 @@
-﻿# =========================================
+# =========================================
 # Base runtime image
 # =========================================
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-# Run as non-root for security
-# Define an app user (UID 1000 by default, can be overridden at build/run)
-ARG APP_UID=1000
-RUN adduser --disabled-password --gecos '' --uid ${APP_UID} appuser \
-    && chown -R appuser /app
-USER appuser
+# RUN adduser --disabled-password --gecos '' --uid ${APP_UID} appuser \
+#     && chown -R appuser /app
+# USER appuser
+
+# Install curl for VSDBG
+RUN apt-get update && apt-get install -y --no-install-recommends curl unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /root/.vsdbg
 
 # Document the Expose ports used by ASP.NET Core
 EXPOSE 8080
 EXPOSE 8081
 
-# =========================================
-# Build image
-# =========================================
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+ARG BUILD_CONFIGURATION=Release
 
 # Copy csproj and restore (fast layer caching)
 #COPY ["SkillBuddy.ui.csproj", "."]
@@ -32,14 +32,15 @@ COPY ["SkillBuddy.Entity/SkillBuddy.Entity.csproj", "SkillBuddy.Entity/"]
 RUN dotnet restore "SkillBuddy.ui/SkillBuddy.ui.csproj"
 # Copy everything else and build
 COPY . .
-RUN dotnet build "SkillBuddy.ui/SkillBuddy.ui.csproj" -c Release -o /app/build
+RUN dotnet build "SkillBuddy.ui/SkillBuddy.ui.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 
 # =========================================
 # Publish stage
 # =========================================
 FROM build AS publish
-RUN dotnet publish "SkillBuddy.ui/SkillBuddy.ui.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "SkillBuddy.ui/SkillBuddy.ui.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 
 # =========================================

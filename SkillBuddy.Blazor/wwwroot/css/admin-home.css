@@ -1,0 +1,280 @@
+/* Admin Dashboard Styles - Matching Uploaded Design */
+
+body {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f8f9fc;
+}
+
+/* Navbar Styles */
+.navbar {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e3e6f0;
+}
+
+.navbar-toggler {
+  padding: 0.25rem 0.5rem;
+  font-size: 1.125rem;
+  border: none;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fc;
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 0;
+  padding-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    margin-left: 240px;
+  }
+}
+
+/* Card Styles */
+.card {
+  border: none;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  border-radius: 0.35rem;
+}
+
+.card-header {
+  background-color: #f8f9fc;
+  border-bottom: 1px solid #e3e6f0;
+  padding: 0.75rem 1.25rem;
+}
+
+/* Border Left Cards */
+.border-left-primary {
+  border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-info {
+  border-left: 0.25rem solid #36b9cc !important;
+}
+
+.border-left-warning {
+  border-left: 0.25rem solid #f6c23e !important;
+}
+
+.border-left-success {
+  border-left: 0.25rem solid #1cc88a !important;
+}
+
+/* Text Colors */
+.text-primary {
+  color: #4e73df !important;
+}
+
+.text-success {
+  color: #1cc88a !important;
+}
+
+.text-warning {
+  color: #f6c23e !important;
+}
+
+.text-gray-800 {
+  color: #5a5c69 !important;
+}
+
+.text-gray-400 {
+  color: #858796 !important;
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Font Weights */
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+
+/* Text Sizes */
+.text-xs {
+  font-size: 0.7rem;
+}
+
+/* Chart Containers */
+.chart-area canvas {
+  height: 20rem;
+  width: 100% !important;
+}
+
+.chart-pie canvas {
+  height: 15rem;
+  width: 100% !important;
+}
+
+.chart-area-bottom canvas {
+  height: 3rem;
+  width: 100% !important;
+}
+
+/* Small Chart Canvas */
+canvas[width="100"][height="30"] {
+  height: 30px !important;
+  max-height: 30px;
+}
+
+canvas[width="100"][height="40"] {
+  height: 200px !important;
+}
+
+canvas[width="200"][height="60"] {
+  height: 60px !important;
+  max-height: 60px;
+}
+
+/* Table Styles */
+.table-bordered {
+  border: 1px solid #e3e6f0;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #e3e6f0;
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+.table thead th {
+  border-bottom: 2px solid #e3e6f0;
+  background-color: #f8f9fc;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  color: #858796;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+.btn-primary:hover {
+  background-color: #2e59d9;
+  border-color: #2653d4;
+}
+
+.btn-outline-primary {
+  color: #4e73df;
+  border-color: #4e73df;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+/* Gradient Cards */
+.gradient-blue {
+  background: linear-gradient(90deg, #4e73df 0%, #224abe 100%);
+}
+
+.gradient-red {
+  background: linear-gradient(90deg, #e74a3b 0%, #c0392b 100%);
+}
+
+.gradient-green {
+  background: linear-gradient(90deg, #1cc88a 0%, #17a673 100%);
+}
+
+.gradient-orange {
+  background: linear-gradient(90deg, #f6c23e 0%, #dda20a 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-teal {
+  background: linear-gradient(90deg, #36b9cc 0%, #258391 100%);
+}
+
+/* Dropdown Styles */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+  border-radius: 0.35rem;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  transition: all 0.15s ease-in-out;
+}
+
+.dropdown-item:hover {
+  background-color: #eaecf4;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .main-content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+}
+
+/* Animation for Cards */
+.card {
+  transition: all 0.15s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 0.25rem 2rem 0 rgba(58, 59, 69, 0.2);
+}
+
+/* Loading Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

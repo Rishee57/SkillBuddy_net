@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" role="img" aria-label="Banner 2">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)" />
+  <g fill="#04202a" font-family="Inter, Arial, Helvetica, sans-serif">
+    <text x="6%" y="45%" font-size="36" font-weight="700">Trusted & Insured Professionals</text>
+    <text x="6%" y="65%" font-size="20" opacity="0.95">Secure payments • Background-checked partners • Easy rescheduling</text>
+  </g>
+  <g transform="translate(880,60)" opacity="0.9">
+    <rect x="0" y="0" width="280" height="280" rx="16" fill="#ffffff22" />
+    <circle cx="140" cy="80" r="44" fill="#fff" />
+    <rect x="40" y="150" width="200" height="18" rx="9" fill="#fff" opacity="0.85" />
+    <rect x="40" y="180" width="140" height="14" rx="7" fill="#fff" opacity="0.65" />
+  </g>
+</svg>

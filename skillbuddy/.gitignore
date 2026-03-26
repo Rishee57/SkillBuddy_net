@@ -1,0 +1,45 @@
+# OS & editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+
+# Go
+bin/
+*.test
+
+# C++
+build/
+*.o
+*.out
+*.so
+
+# Node/React (if applicable later)
+node_modules/
+dist/
+
+# Docker
+*.log
+.env
+docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
+
+# Packages
+*.deb
+*.tar.gz
+*.zip
+
+# Git LFS large files
+*.iso
+*.img
+*.exe
+*.mp4

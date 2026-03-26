@@ -1,0 +1,260 @@
+<div class="modal fade custom-fade" id="loginModal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border-0 saas-modal shadow-lg">
+            <!-- Refined Close Button (absolute top‑right) -->
+            <button type="button" class="btn-saas-close" data-bs-dismiss="modal" aria-label="Close dialog">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <div class="modal-body p-32">
+                <!-- Icon Section -->
+                <div class="icon-circle mb-16">
+                    <i class="bi bi-telephone-fill"></i>
+                </div>
+
+                <!-- Header -->
+                <h2 id="loginModalLabel" class="saas-title fw-bold mb-8">Enter your phone number</h2>
+                <p class="saas-description mb-32">We'll send you a text with a verification code. Standard tariff may apply.</p>
+
+                <!-- Phone Input Section -->
+                <div class="combined-input-group mb-16">
+                    <div class="country-selector" role="button" aria-label="Select country code" tabindex="0">
+                        <span>+91</span>
+                        <i class="bi bi-chevron-down ms-1"></i>
+                    </div>
+                    <div class="input-divider"></div>
+                    <label for="phoneInput" class="visually-hidden">Phone number</label>
+                    <input id="phoneInput" type="tel" 
+                           class="saas-input" 
+                           placeholder="Enter your phone number" 
+                           @bind="phoneNumber" 
+                           @bind:event="oninput" />
+                </div>
+
+                <!-- Continue Button -->
+                <button class="btn btn-saas-continue mb-16" disabled="@IsContinueDisabled">
+                    Continue
+                </button>
+
+                <!-- Footer Terms -->
+                <p class="saas-terms text-center mb-0">
+                    By continuing, you agree to our <a href="#">T&C</a> and <a href="#">Privacy</a> policy.
+                </p>
+                
+                <div class="text-center mt-3">
+                    <span class="saas-terms">Don't have an account? </span>
+                    <a href="#" class="saas-terms fw-bold text-decoration-none">Register Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string? phoneNumber;
+    private bool IsContinueDisabled => string.IsNullOrWhiteSpace(phoneNumber);
+}
+
+<style>
+    /* 1. Modal / Backdrop Design */
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.4) !important;
+        backdrop-filter: blur(3px);
+    }
+
+    /* 2 & 9. Animation (Fade + Scale) */
+    .custom-fade .modal-content {
+        transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    .custom-fade.show .modal-content {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    /* 2. Container Layout */
+    .saas-modal {
+        position: relative; /* ensure absolute children anchor */
+        max-width: 480px;
+        width: 100%;
+        border-radius: 12px;
+        background-color: #ffffff;
+    }
+
+    .p-32 {
+        padding: 32px !important;
+    }
+
+    /* 3. Top Section */
+    .icon-circle {
+        width: 44px;
+        height: 44px;
+        background-color: #EBF5FF;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #3B82F6;
+        font-size: 20px;
+    }
+
+    .mb-16 { margin-bottom: 16px !important; }
+    .mb-8 { margin-bottom: 8px !important; }
+    .mb-32 { margin-bottom: 32px !important; }
+
+    .saas-title {
+        font-size: 24px;
+        color: #111827;
+        text-align: left;
+    }
+
+    .saas-description {
+        font-size: 15px;
+        color: #6B7280;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    /* 4 & 5. Phone Input Layout & Design */
+    .combined-input-group {
+        display: flex;
+        align-items: center;
+        border: 1px solid #D1D5DB;
+        border-radius: 8px;
+        height: 48px;
+        background: white;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .combined-input-group:focus-within {
+        border-color: #3B82F6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+
+    .country-selector {
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+        color: #374151;
+        cursor: pointer;
+    }
+
+    .input-divider {
+        width: 1px;
+        height: 24px;
+        background-color: #D1D5DB;
+    }
+
+    .saas-input {
+        flex: 1;
+        border: none;
+        padding: 0 12px;
+        font-size: 16px;
+        color: #111827;
+        background: transparent;
+        outline: none;
+    }
+
+    .saas-input::placeholder {
+        color: #9CA3AF;
+    }
+
+    /* 6. Continue Button Style */
+    .btn-saas-continue {
+        width: 100%;
+        height: 48px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-saas-continue:disabled {
+        background-color: #E5E7EB;
+        color: #9CA3AF;
+        cursor: not-allowed;
+    }
+
+    .btn-saas-continue:not(:disabled) {
+        background-color: #2563EB;
+        color: white;
+        cursor: pointer;
+    }
+
+    .btn-saas-continue:not(:disabled):hover {
+        background-color: #1D4ED8;
+        transform: translateY(-1px);
+    }
+
+    /* 7. Terms Text */
+    .saas-terms {
+        font-size: 13px;
+        color: #6B7280;
+    }
+
+    .saas-terms a {
+        color: #2563EB;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .saas-terms a:hover {
+        text-decoration: underline;
+    }
+
+    /* 8. Refined Close Button */
+    .btn-saas-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6B7280;
+        font-size: 16px; /* Icon size 16px */
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        z-index: 1056; /* Above modal content */
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .btn-saas-close:hover {
+        background-color: #F3F4F6;
+        color: #111827;
+        /* subtle scale handled by transition above */
+    }
+
+    .btn-saas-close:active {
+        transform: scale(0.95);
+    }
+
+    @@media (max-width: 576px) {
+        .btn-saas-close {
+            width: 40px; /* slightly larger tap area on mobile */
+            height: 40px;
+            font-size: 20px;
+            top: 12px;
+            right: 12px;
+        }
+    }
+
+    /* Overall multi-8 spacing grid */
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+    }
+</style>

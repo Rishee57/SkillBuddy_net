@@ -1,0 +1,1 @@
+/usr/bin/gcc -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/pseudo_llvm-rc.dir/link.d "CMakeFiles/pseudo_llvm-rc.dir/pseudo_llvm-rc.c.o" -o pseudo_llvm-rc

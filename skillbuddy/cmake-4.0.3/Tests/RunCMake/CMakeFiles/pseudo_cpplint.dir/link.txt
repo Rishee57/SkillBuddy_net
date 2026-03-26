@@ -1,0 +1,1 @@
+/usr/bin/gcc -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/pseudo_cpplint.dir/link.d CMakeFiles/pseudo_cpplint.dir/pseudo_cpplint.c.o -o pseudo_cpplint

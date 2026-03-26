@@ -104,10 +104,10 @@ namespace SkillBuddy.Entity
         [JsonProperty("others")]
         public string? Others { get; set; }
     }
-    // public class ApplicationUserSearch : ApplicationUser
-    // {
-    //     public new List<Guid> Id { get; set; }
-    //     public new List<Guid> UserID1 { get; set; }
-    //     public string? Token { get; set; }
-    // }
+    public class ApplicationUserSearch : ApplicationUser
+    {
+        public new List<Guid> Id { get; set; }
+        public new List<Guid> UserID1 { get; set; }
+        public string? Token { get; set; }
+    }
 }

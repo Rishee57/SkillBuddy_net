@@ -35,4 +35,7 @@ packages/
 Thumbs.db
 
 # Others
+node_modules/
 SkillBuddy.ui/http/
+.vs/
+https.pfx

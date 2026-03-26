@@ -1,0 +1,439 @@
+body{background:#f6f7fb}
+    .uc-card{background:#fff;border:1px solid #e8e8ef;border-radius:16px}
+    .service-chip{
+      display:flex;flex-direction:column;align-items:center;gap:.5rem;
+      border:1px solid #e8ecff;border-radius:16px;background:#ffffff;
+      padding:1rem; cursor:pointer; transition:all .2s ease;
+      text-decoration:none;color:#212529;
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
+    }
+    .service-chip:hover{
+      background:#fff;
+      box-shadow:0 8px 25px rgba(108,99,255,0.15);
+      transform:translateY(-3px);
+      border-color:#6c63ff;
+    }
+    .service-chip:hover .service-icon{
+      background:#6c63ff !important;
+    }
+    .service-chip:hover .service-icon svg{
+      fill:#ffffff !important;
+    }
+    .section-title{font-weight:700; font-size:1.25rem}
+    .item-sep{border-top:1px solid #eef0f5}
+    .kicker{color:#6b6b7a;font-size:.95rem}
+    .rating-dot{width:8px;height:8px;background:#6c63ff;border-radius:50%;display:inline-block;margin-right:.35rem}
+
+    /* --- Select a service: polished chips --- */
+    .service-chip{
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:.55rem; width:100%; min-height:112px;
+      border:1px solid #e5e9ff; border-radius:16px; background:#fff;
+      box-shadow:0 2px 8px rgba(0,0,0,.04);
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      text-decoration:none; color:#212529; padding:14px;
+    }
+    .service-chip .icon-wrap{
+      width:56px; height:56px; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(180deg,#f5f6ff,#eef0ff);
+      border:1px solid #e5e9ff;
+    }
+    .service-chip svg{fill:#6c63ff}
+    .service-chip:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(108,99,255,.15); border-color:#6c63ff}
+    .service-chip:focus-visible{outline:4px solid rgba(108,99,255,.25); outline-offset:2px}
+    .service-chip .label{font-weight:600; font-size:14px; line-height:1.15}
+    .label-truncate{max-width:100%; display:inline-block}
+    
+    /* ====================================
+       Enhanced Service Carousel Styles
+       ==================================== */
+
+    /* Base carousel container */
+    .service-carousel-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Carousel track */
+    .service-carousel-track {
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      
+    }
+
+    /* Service cards */
+    .service-card {
+      transition: all 0.3s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      display: flex;
+      align-items: stretch; /* ensure inner .service-option can fill height */
+      box-sizing: border-box;
+    }
+
+    /* Make the visible card content a square using aspect-ratio.
+       Width is controlled by the flex-basis rules in each breakpoint;
+       aspect-ratio keeps height = width. Content inside will use
+       flex layout to place title, rating, price and button neatly. */
+    .service-card .service-option {
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+      background: #ffffff;
+      cursor: pointer;
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+      aspect-ratio: 1 / 1; /* enforce square */
+      padding: 1rem; /* ensure inner spacing */
+      min-height: 0 !important; /* allow aspect-ratio to control height and override inline styles */
+    }
+    
+    /* hover style preserved */
+    .service-card .service-option:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-color: #6c63ff;
+    }
+
+    /* Carousel navigation arrows */
+    .carousel-btn {
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 20;
+      width: 40px;
+      height: 40px;
+    }
+
+    .carousel-btn:hover {
+      background: #ffffff !important;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel-btn:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    .carousel-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Drag guard for touch devices */
+    .dragging * {
+      pointer-events: none !important;
+    }
+
+    /* ====================================
+       Desktop View (≥769px): 3 cards + arrows
+       ==================================== */
+    @media (min-width: 769px) {
+      .service-carousel-container {
+        padding: 0 20px;
+      }
+
+      .service-carousel-track .service-card {
+        flex: 0 0 calc(33.333% - 10px);
+        max-width: calc(33.333% - 10px);
+      }
+
+      .carousel-btn-left {
+        left: -20px;
+      }
+
+      .carousel-btn-right {
+        right: -20px;
+      }
+
+      /* Remove min-height override to let aspect-ratio control size */
+
+      .service-title {
+        font-size: 14px;
+      }
+
+      .service-rating {
+        font-size: 12px;
+      }
+
+      .service-price {
+        font-size: 16px;
+      }
+    }
+
+    /* ====================================
+       Tablet View (577-768px): 2 cards + swipe + arrows
+       ==================================== */
+    @media (min-width: 577px) and (max-width: 768px) {
+      .service-carousel-container {
+        padding: 0 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        cursor: grab;
+      }
+
+      .service-carousel-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .service-carousel-container.dragging {
+        cursor: grabbing;
+      }
+
+      .service-carousel-track {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 12px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .service-carousel-track .service-card {
+        flex: 0 0 calc(50% - 6px);
+        max-width: calc(50% - 6px);
+      }
+
+      .carousel-btn {
+        width: 32px;
+        height: 32px;
+      }
+
+      .carousel-btn-left {
+        left: -16px;
+      }
+
+      .carousel-btn-right {
+        right: -16px;
+      }
+
+      .service-option {
+        min-height: 130px;
+        padding: 0.75rem;
+      }
+
+      .service-title {
+        font-size: 13px;
+      }
+
+      .service-rating {
+        font-size: 11px;
+      }
+
+      .service-price {
+        font-size: 15px;
+      }
+    }
+
+    /* ====================================
+       Mobile View (≤576px): horizontal swipe, arrows hidden
+       ==================================== */
+    @media (max-width: 576px) {
+      .carousel-btn {
+        display: none !important;
+      }
+
+      .service-carousel-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 15px;
+        cursor: grab;
+      }
+
+      .service-carousel-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .service-carousel-container.dragging {
+        cursor: grabbing;
+      }
+
+      .service-carousel-track {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 12px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .service-carousel-track .service-card {
+        flex: 0 0 280px;
+        max-width: 280px;
+      }
+
+      .service-option {
+        min-height: 120px;
+        padding: 12px;
+      }
+
+      .service-title {
+        font-size: 13px;
+        line-height: 1.3;
+      }
+
+      .service-rating {
+        font-size: 11px;
+      }
+
+      .service-price {
+        font-size: 15px;
+      }
+
+      /* Improve touch scrolling experience */
+      .service-carousel-track .service-card {
+        touch-action: manipulation;
+      }
+    }
+
+    /* ====================================
+       Enhanced Accessibility & Interactions
+       ==================================== */
+
+    /* Focus states */
+    .service-option:focus-visible {
+      outline: 3px solid rgba(108, 99, 255, 0.4);
+      outline-offset: 2px;
+    }
+
+    .carousel-btn:focus-visible {
+      outline: 3px solid rgba(108, 99, 255, 0.4);
+      outline-offset: 2px;
+    }
+
+    /* Reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      .service-carousel-track,
+      .service-card,
+      .service-option,
+      .carousel-btn {
+        transition: none !important;
+      }
+
+      .service-carousel-container {
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .service-option {
+        border-width: 3px;
+      }
+
+      .carousel-btn {
+        border: 2px solid #000000;
+      }
+    }
+/* ============================
+   CAROUSEL CARD SIZE / POSITION
+   (safe overrides – keep styles)
+   ============================ */
+
+/* Set default card width/height (desktop-ish) */
+:root{
+  --svc-card-w: 320px;
+  --svc-card-h: 190px;
+}
+
+/* Large desktops: a touch bigger */
+@media (min-width: 1200px){
+  :root{
+    --svc-card-w: 340px;
+    --svc-card-h: 200px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 577px) and (max-width: 991.98px){
+  :root{
+    --svc-card-w: 300px;
+    --svc-card-h: 180px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576.98px){
+  :root{
+    --svc-card-w: 260px;
+    --svc-card-h: 165px;
+  }
+}
+
+/* Keep the track flex and stretch cards nicely */
+.service-carousel-track{
+  display:flex !important;
+  gap:12px !important;
+  align-items:stretch !important;
+}
+
+/* Control the CARD width only (no visual style changed) */
+.service-carousel-track .service-card{
+  flex: 0 0 var(--svc-card-w) !important;
+  max-width: var(--svc-card-w) !important;
+  box-sizing: border-box;
+}
+
+/* Make sure full content fits: remove forced square,
+   and use a fixed min-height that adapts with variables */
+.service-card .service-option{
+  aspect-ratio: auto !important;      /* was 1/1 – remove to avoid clipping */
+  min-height: var(--svc-card-h) !important;
+  display:flex;                        /* keep your column layout */
+  flex-direction: column;
+  justify-content: space-between;      /* title/rating/price/button fit */
+  overflow: visible;                    /* allow natural wrapping */
+  padding: 1rem;                        /* keep your spacing */
+}
+
+/* Ensure long titles wrap instead of truncating */
+.service-title{ white-space: normal !important; }
+
+/* Keep the Add button from jumping — pin it to the bottom naturally */
+.service-card .service-option .btn,
+.service-card .service-option button{
+  align-self: flex-start;               /* keep your button style; just position */
+}
+
+/* Make cards appear horizontally with a nice swipe/scroll feel */
+.cards-row {
+  scroll-snap-type: x mandatory;       /* optional: snap while scrolling */
+}
+
+.cards-row > .service-card {
+  min-width: 240px;                    /* force horizontal layout width */
+  scroll-snap-align: start;            /* snap each card to the left edge */
+  border-radius: 12px;
+}
+
+/* optional: make the scrollbar less intrusive on desktop */
+.cards-row::-webkit-scrollbar { height: 8px; }
+.cards-row::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,.2); border-radius: 4px; }
+
+/* Make arrows sit over the row and be clickable */
+.service-carousel-container { position: relative; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: auto; }
+.carousel-btn-left { left: 8px; }
+.carousel-btn-right { right: 8px; }
+
+/* Scope dragging rule so it doesn't kill arrow clicks */
+.service-carousel-container.dragging .service-card * { pointer-events: none !important; }
+
+    

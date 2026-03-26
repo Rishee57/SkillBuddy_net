@@ -1,0 +1,15 @@
+.admin-shell { min-height: 100vh; }
+.sidebar { width: 260px; transition: width .25s ease; background:#ffffff; }
+.sidebar.collapsed { width: 0; overflow: hidden; }
+.main { min-height: 100vh; background: #f4f6fa; }
+.topbar { background: #fff; }
+.small-kpi .card-body { height: 72px; }
+.chart-large { height: 220px; }
+.trend { height:28px; background:#f7f7f7; margin-bottom:8px; border-radius:4px; display:flex; align-items:center; justify-content:center; }
+.tile .card-body { min-height:80px; }
+.map-card .map-placeholder { height:120px; opacity:0.95; }
+.table-responsive { max-height:240px; overflow:auto; }
+
+@media (max-width: 768px) {
+    .sidebar { position: absolute; z-index: 1040; }
+}

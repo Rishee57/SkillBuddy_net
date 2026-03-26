@@ -5,9 +5,9 @@ using SkillBuddy.Core;
 using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Http.Features;
 using System.Text;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,12 +21,21 @@ IConfiguration Configuration = builder.Configuration;
 // Add framework services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SkillBuddy API", Version = "v1" });
+});
 
 // === 🔑 Inject Cryptography ===
+// Try environment variables first, then fallback to appsettings for development
 string key = Environment.GetEnvironmentVariable("ENCRYPTION_KEY")
-             ?? throw new InvalidOperationException("ENCRYPTION_KEY is missing!");
+             ?? Configuration["Encryption:Key"]
+             ?? throw new InvalidOperationException("ENCRYPTION_KEY is missing from both environment variables and appsettings!");
+
 string saltBase64 = Environment.GetEnvironmentVariable("ENCRYPTION_SALT")
-             ?? throw new InvalidOperationException("ENCRYPTION_SALT is missing!");
+                   ?? Configuration["Encryption:Salt"]
+                   ?? throw new InvalidOperationException("ENCRYPTION_SALT is missing from both environment variables and appsettings!");
+
 byte[] salt = Convert.FromBase64String(saltBase64);
 
 // Register Cryptography as singleton (DI ready)
@@ -40,16 +49,24 @@ dataConnection.ConnectionString = Configuration["ConnectionStrings:DefaultConnec
 // Debug log (do not print in production)
 Console.WriteLine("Connection String Program: " + dataConnection.ConnectionString);
 
+// Register Email Publisher
+builder.Services.AddScoped<SkillBuddy.ui.Services.EmailPublisher>();
+
 var app = builder.Build();
 
 // === Middleware ===
 if (app.Environment.IsDevelopment())
 {
-    // app.UseSwagger();
-    // app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkillBuddy API v1");
+        c.RoutePrefix = string.Empty;
+    });
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // Usually handled by reverse proxy or API gateway in Docker
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 

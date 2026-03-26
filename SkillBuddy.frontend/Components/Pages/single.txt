@@ -1,0 +1,271 @@
+<div class="container-xxl py-4">
+    <!-- header -->
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <h1 class="h3 m-0">Water Purifier</h1>
+        <div class="badge rounded-pill text-dark bg-white border">
+            ⭐ 4.78 (2.0M bookings)
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- LEFT: select a service -->
+        <div class="col-lg-5">
+            <div class="uc-card p-4">
+                <h5 class="mb-3 fw-bold text-dark">Select a service</h5>
+
+                <div class="row g-3">
+                    <div class="col-12 col-sm-6 col-xl-4">
+                        <button type="button" class="service-chip open-modal w-100 border-0"
+                            @onclick='() => OpenModal("Repair")' aria-label="Repair">
+                            <div class="icon-wrap">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
+                                </svg>
+                            </div>
+                            <span class="label">Repair</span>
+                        </button>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-4">
+                        <button type="button" class="service-chip open-modal w-100 border-0"
+                            @onclick='() => OpenModal("Service")' aria-label="Service">
+                            <div class="icon-wrap">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                            <span class="label">Service</span>
+                        </button>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-xl-4">
+                        <button type="button" class="service-chip open-modal w-100 border-0"
+                            @onclick='() => OpenModal("Installation")' aria-label="Installation or Uninstallation">
+                            <div class="icon-wrap">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                                </svg>
+                            </div>
+                            <span class="label">Installation</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: offers and promise -->
+        <div class="col-lg-7">
+            <div class="row g-4">
+
+                <!-- Offers Section -->
+                <div class="col-12">
+                    <div class="uc-card p-3">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="fw-bold">Save 10% on every ...</div>
+                                <div class="text-muted small">Get Plus now</div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn text-decoration-none border-0 bg-transparent p-0"
+                            style="color:#6c63ff;" @onclick="OpenOffersModal">
+                            <span style="color:#6c63ff; font-size: 14px; text-decoration: underline; cursor: pointer;">
+                                View More Offers →
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- UC Promise Section -->
+                <div class="col-12">
+                    <div class="uc-card p-3">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <h6 class="fw-bold mb-0">UC Promise</h6>
+                            <div class="d-flex align-items-center justify-content-center rounded-circle"
+                                style="width: 40px; height: 40px; background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);">
+                                <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="#22c55e" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                </svg>
+                                <span class="small">Verified Professionals</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="#22c55e" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                </svg>
+                                <span class="small">Hassle Free Booking</span>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <svg width="16" height="16" fill="#22c55e" viewBox="0 0 24 24">
+                                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                                </svg>
+                                <span class="small">Transparent Pricing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Repair Service Modal -->
+<div class="modal fade" id="repairModal" tabindex="-1" aria-labelledby="repairModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 600px;">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            <div class="modal-header border-0 pb-2">
+                <div>
+                    <h4 class="modal-title fw-bold mb-1" id="repairModalLabel">Water purifier check-up</h4>
+                    <div class="d-flex align-items-center gap-1">
+                        <span class="text-warning">★</span>
+                        <span class="fw-semibold">4.78</span>
+                        <span class="text-muted">(146K reviews)</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- UCover Standard Rate Card -->
+                <div class="d-flex align-items-center justify-content-between p-3 mb-4 rounded-3"
+                    style="background: #f0f9ff; border: 1px solid #bae6fd;">
+                    <div class="d-flex align-items-center gap-3">
+                        <div style="color: #0ea5e9; font-weight: bold; font-size: 18px;">≈ UCover</div>
+                        <span class="fw-semibold">Standard rate card</span>
+                    </div>
+                    <svg width="20" height="20" fill="#6b7280" viewBox="0 0 24 24">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </div>
+
+                <!-- Service Options -->
+                <div class="position-relative mb-4">
+                    <div class="row g-3">
+                        <div class="col-4">
+                            <div class="service-option border rounded-3 p-3 text-center"
+                                style="min-height: 140px; cursor: pointer;">
+                                <div class="fw-bold mb-2 service-title">Water purifier check-up</div>
+                                <div class="text-muted small service-rating">★ 4.78 (146K reviews)</div>
+                                <div class="fw-bold mt-2 service-price">Starts at ₹299</div>
+                                <button class="btn btn-sm mt-2 service-add-btn"
+                                    style="background: #f8f9ff; color: #6c63ff; border: 1px solid #6c63ff;">Add</button>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="service-option border rounded-3 p-3 text-center"
+                                style="min-height: 140px; cursor: pointer; background: #3b82f6; color: white;">
+                                <div class="fw-bold mb-2 service-title text-white">RO Not Working</div>
+                                <div class="text-light small service-rating">★ 4.81 (73K reviews)</div>
+                                <div class="fw-bold mt-2 service-price text-white">₹450</div>
+                                <button class="btn btn-sm mt-2 service-add-btn"
+                                    style="background: white; color: #3b82f6; border: 1px solid white;">Add</button>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="service-option border rounded-3 p-3 text-center"
+                                style="min-height: 140px; cursor: pointer;">
+                                <div class="fw-bold mb-2 service-title">Water purifier installation</div>
+                                <div class="text-muted small service-rating">★ 4.87 (12K reviews)</div>
+                                <div class="fw-bold mt-2 service-price">₹400</div>
+                                <button class="btn btn-sm mt-2 service-add-btn"
+                                    style="background: #f8f9ff; color: #6c63ff; border: 1px solid #6c63ff;">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Modal Content (simplified) -->
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3">What is included</h5>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center gap-2 mb-2">
+                            <svg width="16" height="16" fill="#22c55e" viewBox="0 0 24 24">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                            </svg>
+                            Complete diagnostic check-up
+                        </li>
+                        <li class="d-flex align-items-center gap-2 mb-2">
+                            <svg width="16" height="16" fill="#22c55e" viewBox="0 0 24 24">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                            </svg>
+                            Filter performance test
+                        </li>
+                        <li class="d-flex align-items-center gap-2 mb-2">
+                            <svg width="16" height="16" fill="#22c55e" viewBox="0 0 24 24">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+                            </svg>
+                            Water quality analysis
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Offers Modal -->
+<div class="modal fade" id="offersModal" tabindex="-1" aria-labelledby="offersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="offersModalLabel">Available Offers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-2">
+                <div class="offers-list">
+
+                    <!-- Save 10% offer -->
+                    <div class="offer-item d-flex align-items-center gap-3 p-3 mb-2 rounded-3"
+                        style="background: #f8f9ff; border: 1px solid #e8ecff;">
+                        <div class="offer-icon d-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 40px; height: 40px; background: #6c63ff;">
+                            <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="fw-bold small">Save 10% on every order</div>
+                            <div class="text-muted" style="font-size: 12px;">Get Plus membership</div>
+                        </div>
+                    </div>
+
+                    <!-- Other offers -->
+                    <div class="offer-item d-flex align-items-center gap-3 p-3 mb-2 rounded-3"
+                        style="background: #f0fdf4; border: 1px solid #dcfce7;">
+                        <div class="offer-icon d-flex align-items-center justify-content-center rounded-circle"
+                            style="width: 40px; height: 40px; background: #22c55e;">
+                            ₹
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="fw-bold small">₹100 cashback</div>
+                            <div class="text-muted" style="font-size: 12px;">On orders above ₹999</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

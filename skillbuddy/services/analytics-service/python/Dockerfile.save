@@ -1,0 +1,16 @@
+# Use latest stable Python 3.12 slim image (as of mid-2025)
+FROM python:3.12-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy all source files
+COPY . .
+
+# Upgrade pip and install dependencies
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir --root-user-action=ignore -r requirements.txt #
+
+# Default command
+CMD ["python", "main.py"]
+

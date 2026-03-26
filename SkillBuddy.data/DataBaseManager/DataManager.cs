@@ -379,7 +379,7 @@ namespace SkillBuddy.data.DataBaseManager
         }
 
         // Varchar / Text
-        public void AddVarcharPara(string Name, int Size, string Value) => AddVarcharPara(Name, Size, Value, QueryParameterDirection.Input);
+        public void AddVarcharPara(string Name, int Size, string? Value) => AddVarcharPara(Name, Size, Value, QueryParameterDirection.Input);
         public void AddVarcharPara(string Name, int Size, string? Value, QueryParameterDirection Direction)
         {
             object oValue = string.IsNullOrEmpty(Value) ? (object)DBNull.Value : Value!;

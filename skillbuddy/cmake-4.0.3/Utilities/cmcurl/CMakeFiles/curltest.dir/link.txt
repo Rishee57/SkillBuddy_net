@@ -1,0 +1,1 @@
+/usr/bin/gcc  -w -D_GNU_SOURCE -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/curltest.dir/link.d CMakeFiles/curltest.dir/curltest.c.o -o curltest  lib/libcmcurl.a /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so ../cmzlib/libcmzlib.a ../cmnghttp2/libcmnghttp2.a
